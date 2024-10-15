@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface Speakable
+abstract class Person
+
+Speakable <|--..  Person
+Person <|-- Teacher
+Person <|-- PersonProxy
+PersonProxy --..> Speakable
+
+
+class Teacher{
+}
+class PersonProxy {
+}
+
+
+@enduml
