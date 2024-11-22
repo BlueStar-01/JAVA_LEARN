@@ -28,28 +28,28 @@ public class CounterServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        ServletContext context = getServletContext();
-
-        // 读取count.properties文件中的初始值
-        Properties properties = new Properties();
-        try (InputStream input = context.getResourceAsStream(COUNTER_PROPERTY_FILE)) {
-            if (input != null) {
-                properties.load(input);
-                String initialCount = properties.getProperty("count");
-                int count = (initialCount != null && !initialCount.isEmpty()) ? Integer.parseInt(initialCount) : 0;
-
-                // 创建Counter对象并放入ServletContext
-                Counter counter = new Counter(count);
-                context.setAttribute(COUNTER_CONTEXT_ATTRIBUTE, counter);
-            } else {
-                System.out.println("Counter property file not found");
-                // 如果找不到文件，则使用默认计数值0
-                Counter counter = new Counter(403);
-                context.setAttribute(COUNTER_CONTEXT_ATTRIBUTE, counter);
-            }
-        } catch (IOException e) {
-            throw new ServletException("读取count.properties文件时出错", e);
-        }
+//        ServletContext context = getServletContext();
+//
+//        // 读取count.properties文件中的初始值
+//        Properties properties = new Properties();
+//        try (InputStream input = context.getResourceAsStream(COUNTER_PROPERTY_FILE)) {
+//            if (input != null) {
+//                properties.load(input);
+//                String initialCount = properties.getProperty("count");
+//                int count = (initialCount != null && !initialCount.isEmpty()) ? Integer.parseInt(initialCount) : 0;
+//
+//                // 创建Counter对象并放入ServletContext
+//                Counter counter = new Counter(count);
+//                context.setAttribute(COUNTER_CONTEXT_ATTRIBUTE, counter);
+//            } else {
+//                System.out.println("Counter property file not found");
+//                // 如果找不到文件，则使用默认计数值0
+//                Counter counter = new Counter(403);
+//                context.setAttribute(COUNTER_CONTEXT_ATTRIBUTE, counter);
+//            }
+//        } catch (IOException e) {
+//            throw new ServletException("读取count.properties文件时出错", e);
+//        }
     }
 
     @Override
@@ -70,20 +70,20 @@ public class CounterServlet extends HttpServlet {
 
     @Override
     public void destroy() {
-        ServletContext context = getServletContext();
-        Counter counter = (Counter) context.getAttribute(COUNTER_CONTEXT_ATTRIBUTE);
-
-        if (counter != null) {
-            Properties properties = new Properties();
-            properties.setProperty("count", String.valueOf(counter.getCount()));
-
-            Path filePath = Paths.get(context.getRealPath(COUNTER_PROPERTY_FILE));
-            try (OutputStream output = Files.newOutputStream(filePath, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
-                properties.store(output, "计数器初始值");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        ServletContext context = getServletContext();
+//        Counter counter = (Counter) context.getAttribute(COUNTER_CONTEXT_ATTRIBUTE);
+//
+//        if (counter != null) {
+//            Properties properties = new Properties();
+//            properties.setProperty("count", String.valueOf(counter.getCount()));
+//
+//            Path filePath = Paths.get(context.getRealPath(COUNTER_PROPERTY_FILE));
+//            try (OutputStream output = Files.newOutputStream(filePath, StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
+//                properties.store(output, "计数器初始值");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         super.destroy();
     }
 }
