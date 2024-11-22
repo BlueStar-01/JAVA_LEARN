@@ -1,0 +1,32 @@
+@startuml
+start
+:签订销售合同;
+:核对合同;
+fork
+  :核对货物清单;
+  fork again
+    :货物有货;
+    :缺货或未付款;
+  end fork
+  :核对付款单;
+end
+if (货物有货?) then (是)
+  :制作并发放出库单;
+else (否)
+  stop
+endif
+if (付款单核对正确?) then (是)
+  :核对付款单正确;
+else (否)
+  stop
+endif
+
+if (货物清单核对正确?) then (是)
+  :核对货物清单正确;
+  :发货;
+  :合同履约;
+else (否)
+  stop
+endif
+stop
+@enduml

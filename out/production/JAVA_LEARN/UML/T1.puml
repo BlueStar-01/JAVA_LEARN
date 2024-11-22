@@ -1,0 +1,29 @@
+@startuml
+
+interface Speakable {
+    +void speak(String message)
+}
+
+abstract class Person {
+    +String toString()
+}
+
+class Teacher {
+    -String position
+    -int salary
+    +void speak(String message)
+    +String toString()
+    +int getSalary()
+}
+
+Teacher --> Person : inherits
+Teacher --> Speakable : implements
+
+class SpeakHandler {
+    -Speakable speakable
+    +Object invoke(Object proxy, Method method, Object[] args)
+}
+
+SpeakHandler --> Speakable : uses
+
+@enduml
