@@ -1,11 +1,12 @@
-package com.itheima;
+package com.itheima.Listener;
+
+import com.itheima.entiy.Counter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.Properties;
 
@@ -65,6 +66,4 @@ public class CounterListener implements ServletContextListener {
             ex.printStackTrace();
         }
     }
-
-
 }

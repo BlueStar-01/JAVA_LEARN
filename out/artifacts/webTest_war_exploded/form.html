@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>输入两个数字和运算符</title>
+    <script type="text/javascript">
+        function validateInputs() {
+            var num1 = document.getElementById("number1").value;
+            var num2 = document.getElementById("number2").value;
+            if (isNaN(num1) || isNaN(num2)) {
+                alert("请输入有效的数字！");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+<h2>请输入两个数字和运算符(*^▽^*)：</h2>
+<form action="RequestParamsServlet" method="get" onsubmit="return validateInputs()">
+    <input type="text" id="number1" name="num1" placeholder="数字一">
+    <br><br>
+    <input type="text" id="number2" name="num2" placeholder="数字二">
+    <br><br>
+    <select id="operator" name="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <br><br>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

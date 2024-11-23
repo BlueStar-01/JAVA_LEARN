@@ -1,4 +1,6 @@
-package com.itheima;
+package com.itheima.Servlet;
+
+import com.itheima.entiy.Counter;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -9,11 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Properties;
 
 @WebServlet(
         urlPatterns = {"/counter"},

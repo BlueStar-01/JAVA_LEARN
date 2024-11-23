@@ -1,4 +1,4 @@
-package com.itheima;
+package com.itheima.entiy;
 
 public class Circle {
     private double radius;

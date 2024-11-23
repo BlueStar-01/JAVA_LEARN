@@ -1,4 +1,4 @@
-package com.itheima;
+package com.itheima.entiy;
 
 public class Counter {
     private int count; //计数值
