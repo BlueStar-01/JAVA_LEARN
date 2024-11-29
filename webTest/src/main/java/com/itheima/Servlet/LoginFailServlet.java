@@ -20,6 +20,5 @@ public class LoginFailServlet extends HttpServlet {
         // 使用请求转发器将请求转发到 Login.jsp
         RequestDispatcher dispatcher = req.getRequestDispatcher("/login.jsp");
         dispatcher.forward(req, resp);
-
     }
 }
