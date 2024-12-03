@@ -1,10 +1,20 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" build-on-make="true" name="webTest:war exploded">
+  <artifact type="exploded-war" name="webTest:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/webTest_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="webTest" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.34" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.0" />
+          <element id="library" level="project" name="Maven: com.mysql:mysql-connector-j:8.3.0" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.25.1" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.1" />
+          <element id="library" level="project" name="Maven: javax.servlet.jsp:javax.servlet.jsp-api:2.2.1" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="webTest/web/Web" />

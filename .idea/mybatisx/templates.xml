@@ -5,7 +5,7 @@
       <TemplateContext>
         <option name="generateConfig">
           <GenerateConfig>
-            <option name="annotationType" value="MYBATIS_PLUS3" />
+            <option name="annotationType" value="NONE" />
             <option name="basePackage" value="generator" />
             <option name="basePath" value="src/main/java" />
             <option name="classNameStrategy" value="camel" />
@@ -37,21 +37,16 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Book" />
-                  <option name="tableName" value="book" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="BookCart" />
-                  <option name="tableName" value="book_cart" />
-                </TableUIInfo>
-                <TableUIInfo>
                   <option name="className" value="User" />
                   <option name="tableName" value="user" />
+                </TableUIInfo>
+                <TableUIInfo>
+                  <option name="className" value="Book" />
+                  <option name="tableName" value="book" />
                 </TableUIInfo>
               </list>
             </option>
             <option name="templatesName" value="custom-model-swagger" />
-            <option name="useLombokPlugin" value="true" />
           </GenerateConfig>
         </option>
         <option name="moduleName" value="webTest" />

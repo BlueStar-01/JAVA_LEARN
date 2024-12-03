@@ -11,7 +11,7 @@ import java.util.Properties;
 @WebListener
 public class CounterListener implements ServletContextListener {
 
-    private static final String COUNTER_PROPERTY_FILE = "/WEB-INF/classes/main/resources/count.properties";
+    private static final String COUNTER_PROPERTY_FILE = "/WEB-INF/classes/count.properties";
     private static final String COUNTER_PROPERTY_KEY = "count";
     public static final String COUNTER_CONTEXT_ATTRIBUTE = "counter";
 
