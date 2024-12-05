@@ -40,6 +40,6 @@
     }
 %>
 <a href="<%= request.getContextPath() +AppConfigConstants.ITEM_SERVLET_URL+"?pageNo=1"%>">继续购物</a>
-<a href="<%= request.getContextPath() +AppConfigConstants.LOGIN_JSP_URL%>">结算</a>
+<a href="<%= request.getContextPath() +AppConfigConstants.SUCCESS_JSP_URL%>">结算</a>
 </body>
 </html>
