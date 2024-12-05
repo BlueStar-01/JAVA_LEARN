@@ -14,12 +14,11 @@
     // 从会话中获取购物车对象
     Cart cart = (Cart) session.getAttribute(AppConfigConstants.CART_KEY);
     if (cart != null) {
-        List<Cart.CartRow> items = cart.getAllRow(); // 假设Cart类有一个getItems()方法来获取商品列表
+        List<Cart.CartRow> items = cart.getAllRow();
         if (!items.isEmpty()) {
             out.println("<table border='1'>");
             out.println("<tr><th>ID</th><th>名称</th><th>作者</th><th>ISBN</th><th>价格</th><th>封面图片</th><th>操作</th><th>数量</th></tr>");
             for (Cart.CartRow row : items) {
-                out.println("<tr>");
                 out.println("<td>" + row.getItem().getId() + "</td>");
                 out.println("<td>" + row.getItem().getName() + "</td>");
                 out.println("<td>" + row.getItem().getAuthor() + "</td>");

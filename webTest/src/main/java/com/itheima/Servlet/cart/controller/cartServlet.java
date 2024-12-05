@@ -31,21 +31,20 @@ public class cartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
         // 从请求中获取表单参数
         String bookId = request.getParameter("id");
         String bookName = request.getParameter("name");
         String bookAuthor = request.getParameter("author");
         String bookIsbn = request.getParameter("isbn");
-        String bookPriceStr = request.getParameter("price"); // 注意：这可能是字符串，需要转换为数值类型
+        String bookPriceStr = request.getParameter("price");
         String bookCoverImg = request.getParameter("coverImg");
 
         try {
-            // 将价格字符串转换为数值类型（假设是BigDecimal）
-            BigDecimal bookPrice = new BigDecimal(bookPriceStr);
-            // 创建Book对象（这里假设Book有一个构造函数或setter方法可以设置这些属性）
             Book cartItem = new Book(Long.parseLong(bookId), bookName, bookAuthor, bookIsbn, Integer.parseInt(bookPriceStr), bookCoverImg);
-            // 处理业务逻辑
             HttpSession session = request.getSession();
+            System.out.println(cartItem);
             Cart cart = (Cart) session.getAttribute(AppConfigConstants.CART_KEY);
             if (cart == null) {
                 cart = new Cart(System.currentTimeMillis());
