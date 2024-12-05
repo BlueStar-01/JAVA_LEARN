@@ -46,6 +46,7 @@ public class BookServiceImplJDBC implements BookService {
                         book.setName(rs.getString("name"));
                         book.setAuthor(rs.getString("author"));
                         book.setCoverImg(rs.getString("cover_img"));
+                        book.setIsbn(rs.getString("ISBN"));
                         book.setPrice(rs.getInt("price"));
                         books.add(book);
                     }

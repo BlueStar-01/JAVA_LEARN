@@ -11,11 +11,11 @@
       </artifact>
     </deployment>
     <server-settings>
-      <option name="BASE_DIRECTORY_NAME" value="6b3858c7-88a9-4f8a-bad3-a317b6e3a1ca" />
+      <option name="BASE_DIRECTORY_NAME" value="a830bfdd-6b1e-4cce-a7ea-b83eb561fd16" />
       <option name="DEPLOY_TOMCAT_APPS" value="true" />
     </server-settings>
-    <predefined_log_file enabled="true" id="Tomcat" />
-    <predefined_log_file enabled="true" id="Tomcat Catalina" />
+    <log_file alias="Tomcat Localhost 日志" path="%IDEA_RUN:CATALINA_BASE%/logs/localhost.*" />
+    <log_file alias="Tomcat Catalina 日志" path="%IDEA_RUN:CATALINA_BASE%/logs/catalina.*" />
     <predefined_log_file id="Tomcat Manager" />
     <predefined_log_file id="Tomcat Host Manager" />
     <predefined_log_file id="Tomcat Localhost Access" />

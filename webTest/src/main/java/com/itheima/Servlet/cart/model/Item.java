@@ -8,5 +8,5 @@ public class Item {
     private String name;
     private String description;
     private Integer price;
-    private String image;
+    private String cover_img;
 }
