@@ -17,15 +17,26 @@
         List<Cart.CartRow> items = cart.getAllRow();
         if (!items.isEmpty()) {
             out.println("<table border='1'>");
-            out.println("<tr><th>ID</th><th>名称</th><th>作者</th><th>ISBN</th><th>价格</th><th>封面图片</th><th>操作</th><th>数量</th></tr>");
+            out.println("<tr>" +
+                    "<th>封面</th>" +
+                    "<th>ID</th>" +
+                    "<th>名称</th>" +
+                    "<th>作者</th>" +
+                    "<th>ISBN</th>" +
+                    "<th>单价格</th>" +
+                    "<th>数量</th>" +
+                    "<th>总价格</th>" +
+                    "<th>操作</th>" +
+                    "</tr>");
             for (Cart.CartRow row : items) {
+                out.println("<td><img src='" + row.getItem().getCoverImg() + "' alt='封面' style='width:100px;height:150px;'></td>");
                 out.println("<td>" + row.getItem().getId() + "</td>");
                 out.println("<td>" + row.getItem().getName() + "</td>");
                 out.println("<td>" + row.getItem().getAuthor() + "</td>");
                 out.println("<td>" + row.getItem().getIsbn() + "</td>");
                 out.println("<td>" + row.getItem().getPrice() + "</td>");
-                out.println("<td><img src='" + row.getItem().getCoverImg() + "' alt='封面' style='width:100px;height:150px;'></td>");
                 out.println("<td>" + row.getNumber() + "</td>");
+                out.println("<td>" + row.getPrice() + "</td>");
                 // 假设有一个删除商品的链接或按钮
                 out.println("<td><a href='removeFromCart?id=" + row.getItem().getId() + "'>删除</a></td>");
                 out.println("</tr>");

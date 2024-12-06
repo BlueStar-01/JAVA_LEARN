@@ -4,6 +4,7 @@ import com.itheima.Servlet.cart.common.AppConfigConstants;
 import com.itheima.Servlet.cart.model.Book;
 import com.itheima.Servlet.cart.model.Page;
 import com.itheima.Servlet.cart.service.BookService;
+import com.itheima.Servlet.cart.service.BookServiceImplJDBC;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,9 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-
-import com.itheima.Servlet.cart.service.BookServiceImplJDBC;
 
 @WebServlet("/itemServlet")
 public class itemServlet extends HttpServlet {

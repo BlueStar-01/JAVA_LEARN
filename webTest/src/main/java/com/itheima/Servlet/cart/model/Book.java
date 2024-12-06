@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-import java.util.Date;
-
 /**
  * /**
  * 书籍信息表

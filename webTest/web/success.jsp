@@ -1,4 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.itheima.Servlet.cart.common.AppConfigConstants" %>
+<%@ page import="com.itheima.Servlet.cart.model.Cart" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +17,7 @@
             align-items: center;
             height: 100vh;
         }
+
         .success-message {
             background-color: #d4edda;
             color: #155724;
@@ -31,7 +34,11 @@
 <div class="success-message">
     <h2>结算成功！</h2>
     <p>您的订单已成功处理。</p>
-    <!-- 您可以在这里添加返回购物车或继续购物的链接 -->
+    <%
+        Cart cart = (Cart) session.getAttribute(AppConfigConstants.CART_KEY);
+        cart.clean();
+        session.setAttribute(AppConfigConstants.CART_KEY, cart);
+    %>
     <a href="cart.jsp">返回购物车</a> | <a href="itemServlet">继续购物</a>
 </div>
 </body>

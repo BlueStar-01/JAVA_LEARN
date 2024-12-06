@@ -31,7 +31,7 @@
 <body>
 <h1>猜数字游戏</h1>
 <form action="GuessNumberServlet" method="post">
-    <label for="guess">请输入你的猜测（1-100）：</label>
+    <label for="guess">请输入你的猜测（1-10）：</label>
     <input type="text" id="guess" name="guess">
     <button type="submit">提交</button>
 </form>

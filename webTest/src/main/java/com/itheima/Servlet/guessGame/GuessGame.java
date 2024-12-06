@@ -10,7 +10,7 @@ public class GuessGame implements Serializable {
     private Boolean isOver;
 
     public GuessGame() {
-        score = new Random(System.currentTimeMillis()).nextInt(100);
+        score = new Random(System.currentTimeMillis()).nextInt(10);
         count = 0;
         isOver = false;
     }

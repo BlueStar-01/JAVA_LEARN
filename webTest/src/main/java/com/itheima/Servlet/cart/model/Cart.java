@@ -26,13 +26,17 @@ public class Cart {
         cartMap.remove(bookId);
     }
 
+    public void clean() {
+        cartMap.clear();
+    }
+
     @Data
     @AllArgsConstructor
     public class CartRow {
         protected Book item;
         protected Integer number;
 
-        protected Integer getPrice() {
+        public Integer getPrice() {
             return item.getPrice() * number;
         }
     }

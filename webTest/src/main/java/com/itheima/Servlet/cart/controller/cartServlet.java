@@ -1,14 +1,11 @@
 package com.itheima.Servlet.cart.controller;
 
-import cn.hutool.log.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itheima.Servlet.cart.common.AppConfigConstants;
 import com.itheima.Servlet.cart.common.JsonUt;
 import com.itheima.Servlet.cart.model.Book;
 import com.itheima.Servlet.cart.model.Cart;
-import com.itheima.Servlet.cart.model.Item;
 import com.itheima.Servlet.cart.model.Result;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 
 @WebServlet("/cartServlet")
