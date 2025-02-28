@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    nacos:
+      server-addr: 192.168.2.128:8848
+  application:
+    name: test
+server:
+  port: 8080
