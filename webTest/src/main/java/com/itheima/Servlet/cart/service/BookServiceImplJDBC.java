@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BookServiceImplJDBC implements BookService {
 
-    private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/dingding";
+    private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/test1?useUnicode=true&characterEncoding=utf8";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "123456";
 
