@@ -1,0 +1,16 @@
+@startuml
+
+    class CameraToolkit {
+        +CameraConnector connector
+        +VideoProcessor processor
+        +StreamPublisher publisher
+        +connectCamera()
+        +disconnectCamera()
+        +getVideoStream()
+    }
+
+    CameraToolkit --> CameraConnector
+    CameraToolkit --> VideoProcessor
+    CameraToolkit --> StreamPublisher
+
+@enduml
