@@ -12,7 +12,7 @@
           <unit-entry name="Hibernate:hibernate.cfg.xml" value="5a012c01-cc8b-4e6f-887d-2ebad9c444f0" />
         </datasource-map>
         <naming-strategy-map />
-        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/Hibernate/hibernate.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/大三下/Hibernate/hibernate.cfg.xml" />
       </configuration>
     </facet>
   </component>
