@@ -1,5 +1,9 @@
-package 大三下.Hibernate;
+package da3xiao.MyBaits.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,16 +15,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
-@Getter
-@Setter
-@Table(appliesTo = "student")
-@NoArgsConstructor
+@TableName(value = "student")
+@Data
 public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(type = IdType.AUTO)
     @Column(name = "sid")
-    private int sid;
+    private Integer sid;
 
     @Column(name = "sname")
     private String sname;

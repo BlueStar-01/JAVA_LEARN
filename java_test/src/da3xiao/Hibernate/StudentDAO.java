@@ -1,4 +1,4 @@
-package 大三下.Hibernate;
+package da3xiao.Hibernate;
 
 
 import org.hibernate.HibernateException;

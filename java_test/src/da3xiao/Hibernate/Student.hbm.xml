@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="Hibernate">
-    <class name="大三下.Hibernate.Student" table="student">
+    <class name="da3xiao.Hibernate.Student" table="student">
         <id name="sid" column="sid">
             <generator class="identity"/>
         </id>

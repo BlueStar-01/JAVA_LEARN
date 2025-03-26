@@ -1,26 +1,21 @@
-package 大三下.test_connections;
-
-import lombok.Data;
+package da3xiao.test_jdbc;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Data
 public class JDBCTemplate {
-    private DataSource dataSource;
+    private Connection connection = null;
 
 
     public JDBCTemplate() {
+        connection = null;
         try {
-            dataSource = new BasicDataSource();
-            dataSource.getConnection();
+            connection = JDBCUtils.getConnection();
             System.out.println("JDBC连接建立完成");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -29,7 +24,7 @@ public class JDBCTemplate {
     }
 
     public <T> List querForObject(String sql, Class<T> cla, List<Object> args) throws SQLException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-        PreparedStatement statement = dataSource.getConnection().prepareStatement(sql);
+        PreparedStatement statement = connection.prepareStatement(sql);
         List<T> results = new ArrayList<T>();
         for (int i = 0; i < args.size(); i++) {
             statement.setObject(1 + i, args.get(i));
@@ -52,7 +47,6 @@ public class JDBCTemplate {
             }
             results.add(result);
         }
-        dataSource.getConnection().close();
         return results;
     }
 }

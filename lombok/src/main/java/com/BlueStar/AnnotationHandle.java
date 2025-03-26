@@ -1,3 +1,4 @@
+/*
 package com.BlueStar;
 
 import com.sun.source.tree.Tree;
@@ -77,3 +78,4 @@ public class AnnotationHandle extends AbstractProcessor {
         return names.fromString("get" + s.substring(0, 1).toUpperCase() + s.substring(1, name.length()));
     }
 }
+*/

@@ -1,4 +1,4 @@
-package 大三下.词法分析器;
+package da3xiao.词法分析器;
 
 import java.util.*;
 

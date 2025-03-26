@@ -22,7 +22,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- 映射实体类 -->
-        <mapping resource="大三下/Hibernate/Student.hbm.xml" />
-        <mapping class="大三下.Hibernate.Student"/>
+        <mapping resource="da3xiao/Hibernate/Student.hbm.xml" />
+        <mapping class="da3xiao.Hibernate.Student"/>
     </session-factory>
 </hibernate-configuration>

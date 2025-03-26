@@ -1,13 +1,11 @@
 package 自己学习用.annotion;
 
-import org.hibernate.bytecode.enhance.spi.Enhancer;
-import org.junit.Test;
+
+
+import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
 
 public class TestClass {
 

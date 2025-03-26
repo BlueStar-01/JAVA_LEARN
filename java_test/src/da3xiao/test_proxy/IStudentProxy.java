@@ -1,4 +1,4 @@
-package 大三下.test_proxy;
+package da3xiao.test_proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -10,7 +10,7 @@ public class IStudentProxy {
     public static void main(String[] args) {
         try {
             //反射创建类
-            student = (Student) Class.forName("大三下.test_proxy.Student").getConstructor().newInstance();
+            student = (Student) Class.forName("da3xiao.test_proxy.Student").getConstructor().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }

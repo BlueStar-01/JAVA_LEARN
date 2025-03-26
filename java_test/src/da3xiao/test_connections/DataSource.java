@@ -1,4 +1,4 @@
-package 大三下.test_connections;
+package da3xiao.test_connections;
 
 import java.sql.Connection;
 import java.sql.SQLException;

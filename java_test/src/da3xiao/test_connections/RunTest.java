@@ -1,9 +1,9 @@
-package 大三下.test_connections;
+package da3xiao.test_connections;
 
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import 大三下.test_jdbc.Book;
+import da3xiao.test_jdbc.Book;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
