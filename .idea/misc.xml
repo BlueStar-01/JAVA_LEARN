@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/webTest/pom.xml" />
         <option value="$PROJECT_DIR$/java_test/pom.xml" />
         <option value="$PROJECT_DIR$/SpringCloudTest/pom.xml" />
+        <option value="$PROJECT_DIR$/lombok/pom.xml" />
       </list>
     </option>
   </component>
