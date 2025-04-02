@@ -1,0 +1,28 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 配置User并注入message -->
+    <bean id="user" class="大三下.Spring.User">
+        <property name="message" value="Hello"/>
+        <property name="id" ref="id"/>
+    </bean>
+    <!-- 注册前置通知Bean -->
+    <bean id="id" class="大三下.Spring.ID">
+        <property name="id" value="15"/>
+        <property name="description" value="这是描述"/>
+    </bean>
+    <bean id="logBeforeAdvice" class="大三下.Spring.LogBeforeAdvice">
+
+    </bean>
+    <!-- 启用AOP自动代理 -->
+    <aop:config>
+        <aop:aspect ref="logBeforeAdvice">
+            <aop:pointcut
+                    id="helloMethods"
+                    expression="execution(* 大三下.Spring.Hello*(..))"/>
+            <aop:before method="before" pointcut-ref="helloMethods"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
