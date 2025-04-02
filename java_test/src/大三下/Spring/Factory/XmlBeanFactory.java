@@ -1,8 +1,12 @@
-package 大三下.Spring;
+package 大三下.Spring.Factory;
 
+import org.jetbrains.annotations.NotNull;
+import org.springframework.aop.Pointcut;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import 大三下.Spring.Bean.BeanInfo;
+import 大三下.Spring.Bean.Property;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -13,13 +17,18 @@ import java.util.*;
 public class XmlBeanFactory {
     //从配置文件加载
     private final Map<String, Object> Beans = new HashMap<String, Object>();
+    private final Map<String, Pointcut> pointcuts = new HashMap<>();
+    private final ProxyFactory proxyFactory = new ProxyFactory();
 
     public void put(String key, Object value) {
         Beans.put(key, value);
     }
 
     public void init(File file) throws Exception {
-        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file);
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        documentBuilderFactory.setNamespaceAware(true);
+        Document document = documentBuilderFactory.newDocumentBuilder().parse(file);
+
         NodeList beans = document.getElementsByTagName("bean");
 
         // 收集所有Bean定义和依赖
@@ -53,6 +62,58 @@ public class XmlBeanFactory {
             beanDefMap.put(def.getId(), def);
         }
 
+        List<String> sortedBeanIds = topSort(beanDefs, beanDefMap);
+
+        for (String beanId : sortedBeanIds) {
+            BeanInfo beanInfo = beanDefMap.get(beanId);
+            //创建实例
+            Class<?> clz = Class.forName(beanInfo.getClassName());
+            Object instance = clz.getConstructor().newInstance();
+            put(beanId, instance);
+            //注入属性
+            for (Property property : beanInfo.getProperties()) {
+                String propertyName = property.getName();
+                String setterName = "set" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+                // 查找参数类型匹配的setter方法
+                Method setter = null;
+                for (Method method : clz.getMethods()) {
+                    if (method.getName().equals(setterName) && method.getParameterCount() == 1) {
+                        setter = method;
+                        break;
+                    }
+                }
+                if (setter == null) {
+                    throw new NoSuchMethodException("未找到setter方法: " + setterName);
+                }
+                Class<?> paramType = setter.getParameterTypes()[0];
+
+                if (property.getValue() != null) {
+                    // 处理基本类型转换
+                    Object value = convertStringToType(property.getValue(), paramType);
+                    setter.invoke(instance, value);
+                } else if (property.getRef() != null) {
+                    Object refBean = getBean(property.getRef());
+                    if (!paramType.isInstance(refBean)) {
+                        throw new IllegalArgumentException("类型不匹配: " + property.getRef());
+                    }
+                    setter.invoke(instance, refBean);
+                }
+            }
+        }
+
+
+        proxyFactory.setXmlBeanFactory(this);
+        proxyFactory.initAopConfig(document);
+
+        Beans.forEach((k, o) -> {
+            if (proxyFactory.needProxy(o)) {
+                Object proxy = proxyFactory.createProxy(o);
+                Beans.put(k, proxy);
+            }
+        });
+    }
+
+    private static @NotNull List<String> topSort(@NotNull List<BeanInfo> beanDefs, Map<String, BeanInfo> beanDefMap) throws Exception {
         // 构建邻接表和入度表
         Map<String, List<String>> adj = new HashMap<>();
         Map<String, Integer> inDegree = new HashMap<>();
@@ -96,43 +157,15 @@ public class XmlBeanFactory {
         if (sortedBeanIds.size() != beanDefs.size()) {
             throw new Exception("存在循环依赖，无法解析Bean");
         }
+        return sortedBeanIds;
+    }
 
-        for (String beanId : sortedBeanIds) {
-            BeanInfo beanInfo = beanDefMap.get(beanId);
-            //创建实例
-            Class<?> clz = Class.forName(beanInfo.getClassName());
-            Object instance = clz.getConstructor().newInstance();
-            put(beanId, instance);
-            //注入属性
-            for (Property property : beanInfo.getProperties()) {
-                String propertyName = property.getName();
-                String setterName = "set" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
-                // 查找参数类型匹配的setter方法
-                Method setter = null;
-                for (Method method : clz.getMethods()) {
-                    if (method.getName().equals(setterName) && method.getParameterCount() == 1) {
-                        setter = method;
-                        break;
-                    }
-                }
-                if (setter == null) {
-                    throw new NoSuchMethodException("未找到setter方法: " + setterName);
-                }
-                Class<?> paramType = setter.getParameterTypes()[0];
+    public void registerPointcut(String id, Pointcut pointcut) {
+        pointcuts.put(id, pointcut);
+    }
 
-                if (property.getValue() != null) {
-                    // 处理基本类型转换
-                    Object value = convertStringToType(property.getValue(), paramType);
-                    setter.invoke(instance, value);
-                } else if (property.getRef() != null) {
-                    Object refBean = getBean(property.getRef());
-                    if (!paramType.isInstance(refBean)) {
-                        throw new IllegalArgumentException("类型不匹配: " + property.getRef());
-                    }
-                    setter.invoke(instance, refBean);
-                }
-            }
-        }
+    public Pointcut getPointcut(String id) {
+        return pointcuts.get(id);
     }
 
     public Object getBean(String key) {

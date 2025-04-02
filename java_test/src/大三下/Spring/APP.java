@@ -1,6 +1,10 @@
 package 大三下.Spring;
 
 
+import 大三下.Spring.Bean.Hello;
+import 大三下.Spring.Bean.User;
+import 大三下.Spring.Factory.XmlBeanFactory;
+
 import java.io.File;
 
 public class APP {
@@ -9,8 +13,11 @@ public class APP {
         XmlBeanFactory xmlBeanFactory = new XmlBeanFactory();
         xmlBeanFactory.init(new File("java_test/src/大三下/Spring/applicationContext.xml"));
 
-        User user = (User) xmlBeanFactory.getBean("user");
+        Hello user = (Hello) xmlBeanFactory.getBean("user");
         System.out.println(user.sayHello("tom"));
+
+        System.out.println(user);
+
     }
 
     public static void main(String[] args) throws Exception {

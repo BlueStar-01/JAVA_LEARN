@@ -3,25 +3,25 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!-- 配置User并注入message -->
-    <bean id="user" class="大三下.Spring.User">
+
+    <bean id="logBeforeAdvice" class="大三下.Spring.AOP.LogBeforeAdvice">
+        <!-- 配置User并注入message -->
+    </bean>
+    <bean id="user" class="大三下.Spring.Bean.User">
         <property name="message" value="Hello"/>
         <property name="id" ref="id"/>
     </bean>
     <!-- 注册前置通知Bean -->
-    <bean id="id" class="大三下.Spring.ID">
+    <bean id="id" class="大三下.Spring.Bean.ID">
         <property name="id" value="15"/>
         <property name="description" value="这是描述"/>
-    </bean>
-    <bean id="logBeforeAdvice" class="大三下.Spring.LogBeforeAdvice">
-
     </bean>
     <!-- 启用AOP自动代理 -->
     <aop:config>
         <aop:aspect ref="logBeforeAdvice">
             <aop:pointcut
                     id="helloMethods"
-                    expression="execution(* 大三下.Spring.Hello*(..))"/>
+                    expression="execution(* 大三下.Spring.Bean.Hello.sayHello(..))"/>
             <aop:before method="before" pointcut-ref="helloMethods"/>
         </aop:aspect>
     </aop:config>
