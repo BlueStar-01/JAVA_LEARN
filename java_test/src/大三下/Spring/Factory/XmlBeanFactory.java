@@ -5,8 +5,8 @@ import org.springframework.aop.Pointcut;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import 大三下.Spring.Bean.BeanInfo;
-import 大三下.Spring.Bean.Property;
+import 大三下.Spring.Bean.BeanTest.BeanInfo;
+import 大三下.Spring.Bean.BeanTest.Property;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;

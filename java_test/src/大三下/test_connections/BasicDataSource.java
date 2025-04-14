@@ -2,19 +2,18 @@ package 大三下.test_connections;
 
 
 import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import lombok.extern.slf4j.Slf4j;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
+@Slf4j
 @Data
 public class BasicDataSource extends DataSource {
 
-    private static final Logger log = LoggerFactory.getLogger(BasicDataSource.class);
     private String DriverClass = "com.mysql.cj.jdbc.Driver";
-    private String url = "jdbc:mysql://localhost:3306/dingding";
+    private String url = "jdbc:mysql://localhost:3306/test1";
     private String user = "root";
     private String password = "123456";
 

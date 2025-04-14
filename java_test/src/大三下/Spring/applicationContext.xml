@@ -4,25 +4,43 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
-    <bean id="logBeforeAdvice" class="大三下.Spring.AOP.LogBeforeAdvice">
+    <bean id="logBeforeAdvice" class="大三下.Spring.AOP.impl.LogBeforeAdvice">
         <!-- 配置User并注入message -->
     </bean>
-    <bean id="user" class="大三下.Spring.Bean.User">
+    <bean id="transactionAroundAdvice" class="大三下.Spring.AOP.impl.TransactionAroundAdvice">
+     <property name="dataSource" ref="jdbc"/>
+    </bean>
+    <bean id="user" class="大三下.Spring.Bean.BeanTest.User">
         <property name="message" value="Hello"/>
         <property name="id" ref="id"/>
     </bean>
+    
     <!-- 注册前置通知Bean -->
-    <bean id="id" class="大三下.Spring.Bean.ID">
+    <bean id="id" class="大三下.Spring.Bean.BeanTest.ID">
         <property name="id" value="15"/>
         <property name="description" value="这是描述"/>
+    </bean>
+    
+    <bean id="orderService" class="大三下.Spring.Bean.Server.OrderService">
+        <property name="jdbcTemplate" ref="jdbc"/>
+    </bean>
+
+    <bean id="jdbc" class="大三下.test_connections.JDBCTemplate">
+
     </bean>
     <!-- 启用AOP自动代理 -->
     <aop:config>
         <aop:aspect ref="logBeforeAdvice">
             <aop:pointcut
                     id="helloMethods"
-                    expression="execution(* 大三下.Spring.Bean.Hello.sayHello(..))"/>
+                    expression="execution(* 大三下.Spring.Bean.BeanTest.Hello.sayHello(..))"/>
             <aop:before method="before" pointcut-ref="helloMethods"/>
+        </aop:aspect>
+        <aop:aspect ref="transactionAroundAdvice">
+            <aop:pointcut
+                    id="saveMethods"
+                    expression="execution(* 大三下.Spring.Bean.Server.OrderService.saveOrder(..))"/>
+            <aop:around method="aroundAdvice" pointcut-ref="saveMethods"/>
         </aop:aspect>
     </aop:config>
 </beans>

@@ -21,8 +21,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-@Slf4j
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Slf4j
 public class MyBaitsTest {
 
     private static StudentMapper mapper;
@@ -97,7 +97,7 @@ public class MyBaitsTest {
         student.setAge(22);
         Student byId = mapper.selectById(7);
         Assertions.assertNotNull(byId);
-        log.info("查找数据id为7：" + byId);
+        System.out.println("查找数据id为7：" + byId);
         student.setSid(null);
         int insert = mapper.insert(student);
         Assertions.assertTrue(insert > 0);
@@ -122,7 +122,7 @@ public class MyBaitsTest {
         System.out.println("查------------------------------------");
         Student byId = mapper.selectById(student.getSid());
         Assertions.assertNotNull(byId);
-        log.info(byId.toString());
+        System.out.println(byId.toString());
     }
 
     @Test

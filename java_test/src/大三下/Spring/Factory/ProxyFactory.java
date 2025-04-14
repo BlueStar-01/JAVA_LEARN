@@ -3,9 +3,14 @@ package 大三下.Spring.Factory;
 import lombok.Getter;
 import lombok.Setter;
 import org.aopalliance.aop.Advice;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.aop.Pointcut;
+import org.springframework.aop.ProxyMethodInvocation;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
+import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.w3c.dom.Document;
@@ -76,6 +81,9 @@ public class ProxyFactory {
                     case "before":
                         parseBeforeAdvice(element, adviceBean);
                         break;
+                    case "around":  // 新增环绕通知处理
+                        parseAroundAdvice(element, adviceBean);
+                        break;
                 }
             }
         }
@@ -117,6 +125,52 @@ public class ProxyFactory {
         advisor.setPointcut(pointcut);
         advisor.setAdvice(advice);
         advisors.add(advisor);
+    }
+
+    /**
+     * 解析<aop:around>标签
+     */
+    private void parseAroundAdvice(Element aroundElement, Object adviceBean) {
+        String methodName = aroundElement.getAttribute("method");
+        String pointcutRef = aroundElement.getAttribute("pointcut-ref");
+
+        // 获取切点
+        Pointcut pointcut = xmlBeanFactory.getPointcut(pointcutRef);
+        if (pointcut == null) {
+            throw new IllegalArgumentException("未找到切点: " + pointcutRef);
+        }
+
+        // 创建环绕通知
+        MethodInterceptor advice = createAroundAdvice(adviceBean, methodName);
+
+        // 创建Advisor
+        DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor();
+        advisor.setPointcut(pointcut);
+        advisor.setAdvice(advice);
+        advisors.add(advisor);
+    }
+
+
+    /**
+     * 创建环绕通知对象
+     */
+    private MethodInterceptor createAroundAdvice(Object adviceBean, String methodName) {
+        try {
+            Method adviceMethod = adviceBean.getClass().getMethod(methodName, ProceedingJoinPoint.class);
+
+            return new MethodInterceptor() {
+                @Override
+                public Object invoke(MethodInvocation invocation) throws Throwable {
+                    // 创建ProceedingJoinPoint
+                    ProceedingJoinPoint pjp = new MethodInvocationProceedingJoinPoint((ProxyMethodInvocation) invocation);
+
+                    // 通过反射调用通知方法
+                    return adviceMethod.invoke(adviceBean, pjp);
+                }
+            };
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException("环绕通知方法签名错误，需要ProceedingJoinPoint参数", e);
+        }
     }
 
     /**
