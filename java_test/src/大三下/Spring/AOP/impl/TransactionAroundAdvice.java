@@ -33,7 +33,7 @@ public class TransactionAroundAdvice implements AroundAdvice {
             return result;
         } catch (Throwable e) {
             if (conn != null) conn.rollback();
-            log.info("事务执行失败，已回滚 {}", e.getMessage());
+            log.info("事务执行失败\n已回滚 {}", e.getMessage());
             // throw new RuntimeException("事务执行失败，已回滚");
         } finally {
             if (conn != null) conn.close();

@@ -7,9 +7,9 @@ public class User implements Hello {
     private ID id;
     private String message;
 
-    private String uid;
+    private Integer uid;
     private String name;
-    private int age;
+    private Integer age;
 
     @Override
     public String sayHello(String name) {

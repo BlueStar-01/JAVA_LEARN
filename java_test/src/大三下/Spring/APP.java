@@ -29,16 +29,25 @@ public class APP {
         Service orderService = (Service) xmlBeanFactory.getBean("orderService");
         //成功订单
         Order order1 = new Order()
-                .setOid("1")
                 .setUid("1")
                 .setOrderNum("1");
         //失败订单
         Order order2 = new Order()
-                .setOid("2")
-                .setUid("2")
-                .setOrderNum("2");
+                .setUid("2654")
+                .setOrderNum("1");
 
         orderService.saveOrder(List.of(order1, order2));
+
+        //成功订单
+        Order order3 = new Order()
+                .setUid("1")
+                .setOrderNum("2");
+        //失败订单
+        Order order4 = new Order()
+                .setUid("1")
+                .setOrderNum("2");
+
+        orderService.saveOrder(List.of(order3, order4));
 
         log.info("不中断主程序的使用");
 
