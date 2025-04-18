@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户服务测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #444;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            min-height: 20px;
+        }
+        .json-input {
+            height: 100px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+<h1>用户服务测试页面</h1>
+
+<div class="section">
+    <h2>登录测试</h2>
+    <label for="login-username">用户名:</label>
+    <input type="text" id="login-username" placeholder="输入用户名">
+
+    <label for="login-password">密码:</label>
+    <input type="password" id="login-password" placeholder="输入密码">
+
+    <button onclick="testLogin()">测试登录</button>
+
+    <div class="result" id="login-result"></div>
+</div>
+
+<div class="section">
+    <h2>注册测试</h2>
+    <p>输入用户JSON数据:</p>
+    <textarea id="regist-data" class="json-input">{
+    "username": "testuser",
+    "password": "test123",
+    "email": "test@example.com",
+    "phone": "13800138000"
+}</textarea>
+
+    <button onclick="testRegist()">测试注册</button>
+
+    <div class="result" id="regist-result"></div>
+</div>
+
+<div class="section">
+    <h2>分配部门测试</h2>
+    <label for="alloc-user-id">用户ID:</label>
+    <input type="number" id="alloc-user-id" placeholder="输入用户ID">
+
+    <label for="alloc-dept-id">部门ID:</label>
+    <input type="number" id="alloc-dept-id" placeholder="输入部门ID">
+
+    <button onclick="testAllocDept()">测试分配部门</button>
+
+    <div class="result" id="alloc-result"></div>
+</div>
+
+<div class="section">
+    <h2>更新用户信息测试</h2>
+    <p>输入更新后的用户JSON数据:</p>
+    <textarea id="update-data" class="json-input">{
+    "id": 1,
+    "username": "updateduser",
+    "password": "newpassword",
+    "email": "updated@example.com",
+    "phone": "13900139000"
+}</textarea>
+
+    <button onclick="testUpdateUser()">测试更新用户</button>
+
+    <div class="result" id="update-result"></div>
+</div>
+
+<script>
+    // 基础URL
+    const BASE_URL = 'http://localhost:8080/user';
+
+    // 显示结果
+    function showResult(elementId, message, isSuccess = true) {
+        const element = document.getElementById(elementId);
+        element.textContent = message;
+        element.style.backgroundColor = isSuccess ? '#e8f5e9' : '#ffebee';
+        element.style.color = isSuccess ? '#2e7d32' : '#c62828';
+    }
+
+    // 测试登录
+    function testLogin() {
+        const username = document.getElementById('login-username').value;
+        const password = document.getElementById('login-password').value;
+
+        if (!username || !password) {
+            showResult('login-result', '用户名和密码不能为空', false);
+            return;
+        }
+
+        const url = `${BASE_URL}/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
+
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                showResult('login-result', data);
+            })
+            .catch(error => {
+                showResult('login-result', `请求失败: ${error.message}`, false);
+            });
+    }
+
+    // 测试注册
+    function testRegist() {
+        const jsonData = document.getElementById('regist-data').value;
+
+        try {
+            JSON.parse(jsonData); // 验证JSON格式
+        } catch (e) {
+            showResult('regist-result', `JSON格式错误: ${e.message}`, false);
+            return;
+        }
+
+        fetch(`${BASE_URL}/regist`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: jsonData
+        })
+            .then(response => response.text())
+            .then(data => {
+                showResult('regist-result', data);
+            })
+            .catch(error => {
+                showResult('regist-result', `请求失败: ${error.message}`, false);
+            });
+    }
+
+    // 测试分配部门
+    function testAllocDept() {
+        const userId = document.getElementById('alloc-user-id').value;
+        const deptId = document.getElementById('alloc-dept-id').value;
+
+        if (!userId || !deptId) {
+            showResult('alloc-result', '用户ID和部门ID不能为空', false);
+            return;
+        }
+
+        const url = `${BASE_URL}/allocDept?userId=${userId}&deptId=${deptId}`;
+
+        fetch(url, {
+            method: 'POST'
+        })
+            .then(response => response.text())
+            .then(data => {
+                showResult('alloc-result', data);
+            })
+            .catch(error => {
+                showResult('alloc-result', `请求失败: ${error.message}`, false);
+            });
+    }
+
+    // 测试更新用户
+    function testUpdateUser() {
+        const jsonData = document.getElementById('update-data').value;
+
+        try {
+            JSON.parse(jsonData); // 验证JSON格式
+        } catch (e) {
+            showResult('update-result', `JSON格式错误: ${e.message}`, false);
+            return;
+        }
+
+        fetch(`${BASE_URL}/updateUser`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: jsonData
+        })
+            .then(response => response.text())
+            .then(data => {
+                showResult('update-result', data);
+            })
+            .catch(error => {
+                showResult('update-result', `请求失败: ${error.message}`, false);
+            });
+    }
+</script>
+</body>
+</html>

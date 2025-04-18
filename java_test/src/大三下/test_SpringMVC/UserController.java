@@ -2,10 +2,12 @@ package 大三下.test_SpringMVC;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*")  // 允许所有来源的跨域请求
 public class UserController {
 
     @Autowired
@@ -21,7 +23,7 @@ public class UserController {
     }
 
     @PostMapping("/regist")
-    public String regist(@RequestBody User user) {
+    public String regist(@Validated @RequestBody User user) {
         return userService.regist(user)
                 ? "注册成功" : "用户名已存在";
     }
@@ -36,7 +38,7 @@ public class UserController {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(@RequestBody User user) {
+    public String updateUser(@Validated @RequestBody User user) {
         userService.updateUser(user);
         return "用户信息更新成功";
     }
